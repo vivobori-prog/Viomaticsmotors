@@ -102,7 +102,7 @@ footer{text-align:center;padding:20px;background:#111;color:#888;}
 <option>No</option>
 </select>
 <button id="submitBtn" class="submit-btn" onclick="submitForm()" disabled>Submit</button>
-<button class="submit-btn" style="margin-top:10px;background:#222;color:#ffd000;" onclick="getLocation()">📍 Use My Location</button>
+<button id="locBtn" class="submit-btn" style="margin-top:10px;background:#222;color:#ffd000;display:none;" onclick="getLocation()">📍 Use My Location</button>
 <div class="loading" id="loadingMsg">⏳ Sending...</div>
 <div class="success" id="locMsg" style="display:none;">📍 Location captured</div>
 <div class="success" id="distanceMsg" style="display:none;">Distance: -- km</div>
@@ -128,6 +128,15 @@ window.openForm = function(type){
     currentService = type;
     document.getElementById('formModal').classList.add('active');
 
+    // reset UI
+    window.userLocation='';
+    window.userDistance=0;
+    document.getElementById('distanceMsg').style.display='none';
+    document.getElementById('priceMsg').style.display='none';
+    document.getElementById('locBtn').style.display='none';
+    document.getElementById('submitBtn').disabled = true;
+    document.getElementById('submitBtn').style.opacity = '0.5';
+
     const title = document.getElementById('formTitle');
     const dropdown = document.getElementById('home');
 
@@ -135,6 +144,15 @@ window.openForm = function(type){
         title.innerText = 'Book Tyre Service';
         dropdown.options[0].text = 'Home Repair?';
     } else if(type === 'wash'){
+        title.innerText = 'Book Car/Bike Washing';
+        dropdown.options[0].text = 'Home Washing?';
+    } else if(type === 'fuel'){
+        title.innerText = 'Emergency Fuel Service';
+        dropdown.options[0].text = 'Emergency Delivery?';
+        // for fuel always require location
+        document.getElementById('locBtn').style.display='block';
+    }
+} else if(type === 'wash'){
         title.innerText = 'Book Car/Bike Washing';
         dropdown.options[0].text = 'Home Washing?';
     } else if(type === 'fuel'){
@@ -156,7 +174,7 @@ window.getLocation = function(){
             let lon = position.coords.longitude;
             window.userLocation = lat + ',' + lon;
 
-            // SHOP LOCATION (Temera Chariali - updated)
+            // SHOP LOCATION (Temera Chariali)
             const shopLat = 26.18;
             const shopLon = 91.78;
 
@@ -164,12 +182,30 @@ window.getLocation = function(){
                 const R = 6371;
                 const dLat = (lat2-lat1) * Math.PI/180;
                 const dLon = (lon2-lon1) * Math.PI/180;
-                const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                          Math.cos(lat1 * Math.PI/180) * Math.cos(lat2 * Math.PI/180) *
-                          Math.sin(dLon/2) * Math.sin(dLon/2);
-                const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-                return R * c;
+                const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2;
+                return 2 * R * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
             }
+
+            let distance = getDistance(shopLat, shopLon, lat, lon);
+            window.userDistance = distance;
+
+            document.getElementById('distanceMsg').innerText = '📏 Distance: ' + distance.toFixed(2) + ' km';
+            document.getElementById('distanceMsg').style.display = 'block';
+
+            if(distance <= 5){
+                document.getElementById('priceMsg').innerText = 'Delivery: ₹50';
+                document.getElementById('submitBtn').disabled = false;
+                document.getElementById('submitBtn').style.opacity = '1';
+            } else {
+                document.getElementById('priceMsg').innerText = '❌ Service not available (over 5km)';
+                document.getElementById('submitBtn').disabled = true;
+                document.getElementById('submitBtn').style.opacity = '0.5';
+            }
+            document.getElementById('priceMsg').style.display = 'block';
+
+        }, function(){ alert('Location access denied'); });
+    } else { alert('Geolocation not supported'); }
+}
 
             let distance = getDistance(shopLat, shopLon, lat, lon);
             window.userDistance = distance;
@@ -204,19 +240,19 @@ window.submitForm = function(){
     let time=document.getElementById('time').value;
     let home=document.getElementById('home').value;
 
-    if(!name || !phone || !date || !time || !home){
-        alert('Fill all fields');
+    if(!name || !phone || !date || !time || !home){ alert('Fill all fields'); return; }
+
+    // need location only when YES or fuel
+    let needLocation = false;
+    if(currentService === 'fuel') needLocation = true;
+    if((currentService === 'tyre' || currentService === 'wash') && home === 'Yes') needLocation = true;
+
+    if(needLocation && !window.userLocation){
+        alert('Please click "Use My Location"');
         return;
     }
 
-    // STRICT CHECK: MUST HAVE LOCATION FIRST
-    if(!window.userLocation){
-        alert('Please click "Use My Location" first');
-        return;
-    }
-
-    // AUTO REJECT ABOVE 5KM
-    if(window.userDistance > 5){
+    if(needLocation && window.userDistance > 5){
         alert('❌ Service not available beyond 5 km');
         return;
     }
@@ -233,11 +269,11 @@ window.submitForm = function(){
     if(currentService === 'wash') optionLabel = 'Home Washing';
     if(currentService === 'fuel') optionLabel = 'Emergency Delivery';
 
-    let locationText = `%0ALocation: https://maps.google.com/?q=${window.userLocation}`;
+    let locationText = needLocation ? `%0ALocation: https://maps.google.com/?q=${window.userLocation}` : '';
 
     let msg=`New Booking:%0AService: ${serviceName}%0AName: ${name}%0APhone: ${phone}%0ADate: ${date}%0ATime: ${time}%0A${optionLabel}: ${home}${locationText}`;
 
-    window.open(`https://wa.me/918638939143?text=${msg}`,'_blank');
+    window.open(`https://wa.me/918638939143?text=${msg}`,'_blank');(`https://wa.me/918638939143?text=${msg}`,'_blank');
 
     setTimeout(()=>{
         document.getElementById('loadingMsg').style.display='none';
@@ -249,9 +285,75 @@ window.submitForm = function(){
     },1000);
 }
 
+// SHOW/HIDE LOCATION BUTTON BASED ON DROPDOWN
+const homeSelect = document.getElementById('home');
+homeSelect.addEventListener('change', function(){
+    if(currentService === 'fuel'){
+        document.getElementById('locBtn').style.display='block';
+    } else if(this.value === 'Yes'){
+        document.getElementById('locBtn').style.display='block';
+    } else {
+        document.getElementById('locBtn').style.display='none';
+        document.getElementById('submitBtn').disabled = false;
+        document.getElementById('submitBtn').style.opacity = '1';
+    }
+});
+
 // FLOAT BUTTON
 window.openWhatsApp = function(){
     window.open('https://wa.me/918638939143','_blank');
+}
+</script>
+
+
+
+<!-- TRACKING MODAL -->
+<div class="form-modal" id="trackingModal">
+  <div class="form-box">
+    <h2 style="color:#ffd000">🚚 Service On The Way</h2>
+    <div id="trackingStatus" style="margin-top:20px;text-align:center;">
+      <p>🧾 Booking Confirmed</p>
+      <p>🔧 Technician Assigned</p>
+      <p id="progressStep">🚗 On the way...</p>
+      <p id="eta" style="margin-top:10px;color:#ccc;">ETA: Calculating...</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// TRACKING SIMULATION
+function startTracking(){
+    document.getElementById('trackingModal').classList.add('active');
+
+    let etaText = document.getElementById('eta');
+    let step = document.getElementById('progressStep');
+
+    let time = 5; // minutes
+    etaText.innerText = 'ETA: ' + time + ' mins';
+
+    let interval = setInterval(()=>{
+        time--;
+        etaText.innerText = 'ETA: ' + time + ' mins';
+
+        if(time === 2){
+            step.innerText = '📍 Reached nearby...';
+        }
+
+        if(time <= 0){
+            clearInterval(interval);
+            step.innerText = '✅ Arrived at your location';
+            etaText.innerText = '';
+        }
+    },1000);
+}
+
+// MODIFY SUBMIT TO TRIGGER TRACKING
+const oldSubmit = window.submitForm;
+window.submitForm = function(){
+    oldSubmit();
+    setTimeout(()=>{
+        startTracking();
+    },2000);
 }
 </script>
 
