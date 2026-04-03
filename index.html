@@ -10,7 +10,11 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 
-body{background:#000;color:white;overflow-x:hidden;}
+body{
+    background:linear-gradient(135deg,#000,#111,#000);
+    color:white;
+    overflow-x:hidden;
+}
 
 /* HEADER */
 header{
@@ -35,51 +39,58 @@ nav{margin-left:auto;}
 nav a{margin-left:20px;color:white;text-decoration:none;transition:0.3s;}
 nav a:hover{color:#ffd000;}
 
-.call
-.btn:hover{
-    transform:translateY(5px) scale(1.05);
-    box-shadow:0 0 25px rgba(255,208,0,0.9), 0 0 50px rgba(255,208,0,0.6);
-    background:#ffcc00;
+.call-btn{
+    margin-left:20px;
+    padding:8px 18px;
+    background:#ffd000;
+    color:black;
+    border-radius:20px;
+    text-decoration:none;
+    font-weight:600;
 }
 
-/* HERO SIMPLE CLEAN BACKGROUND */
+/* HERO */
 .hero{
     height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
     text-align:center;
-    background:linear-gradient(135deg,#000,#111);
 }
 
-.hero-content{
-    padding:20px;
-}
+.hero-content{padding:20px;}
 
 .hero h1{
-    font-size:55px;
+    font-size:60px;
     color:#ffd000;
     text-shadow:
-        0 0 5px #ffd000,
-        0 0 10px #ffd000,
-        0 0 20px #ffcc00,
-        0 0 40px #ffcc00,
-        0 0 80px #ffb800;
-    letter-spacing:2px;
+        0 0 3px #ffd000,
+        0 0 6px #ffd000,
+        0 0 12px #ffcc00;
 }
 
 .hero p{
-    color:#ddd;
-    margin-top:10px;
+    color:#ccc;
+    margin-top:15px;
+    font-size:18px;
 }
 
-.btn{
-    margin-top:40px; /* moved slightly down */
-    padding:14px 35px;
-    background:#ffd000;
-    color:black;
-    border-radius:30px;
-    text-decoration:none;
+/* IMAGE SECTION */
+.gallery{
+    padding:60px 20px;
+    text-align:center;
+}
+
+.gallery h2{
+    color:#ffd000;
+    margin-bottom:30px;
+}
+
+.gallery img{
+    width:90%;
+    max-width:800px;
+    border-radius:15px;
+    box-shadow:0 0 20px rgba(255,208,0,0.3);
 }
 
 /* SERVICES */
@@ -94,50 +105,52 @@ nav a:hover{color:#ffd000;}
     border-radius:15px;
     width:220px;
     transition:0.4s;
+    box-shadow:0 0 10px rgba(255,208,0,0.1);
 }
 
-.card:hover{transform:scale(1.1);}
+.card:hover{
+    transform:scale(1.1);
+    box-shadow:0 0 25px rgba(255,208,0,0.6);
+}
+
+/* WHY SECTION */
+.why{
+    padding:60px 20px;
+    text-align:center;
+}
+
+.why h2{
+    color:#ffd000;
+}
+
+.why p{
+    margin-top:15px;
+    color:#aaa;
+    line-height:1.8;
+}
+
+/* CONTACT */
+.contact{
+    padding:60px 20px;
+    text-align:center;
+}
+
+.contact h2{
+    color:#ffd000;
+}
+
+.contact p{
+    margin-top:10px;
+    color:#ccc;
+}
 
 footer{text-align:center;padding:20px;background:#111;color:#888;}
 
-/* MOBILE OPTIMIZATION */
+/* MOBILE */
 @media(max-width:768px){
-
-header{
-    padding:10px 15px;
-}
-
-header img{
-    width:45px;
-}
-
-nav a{
-    margin-left:10px;
-    font-size:14px;
-}
-
-.call-btn{
-    padding:6px 10px;
-    font-size:12px;
-}
-
-.hero h1{
-    font-size:32px;
-}
-
-.hero p{
-    font-size:14px;
-}
-
-.btn{
-    padding:10px 20px;
-    font-size:14px;
-    margin-top:30px;
-}
-
-.card{
-    width:90%;
-}
+.hero h1{font-size:34px;}
+.hero p{font-size:14px;}
+.card{width:90%;}
 }
 </style>
 </head>
@@ -157,17 +170,36 @@ nav a{
 <div class="hero-content">
 <h1>VIOMATICS MOTORS</h1>
 <p>Tyre • Wash • Fuel Services</p>
-
 </div>
+</section>
+
+<section class="gallery">
+<h2>Our Work</h2>
+<img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7">
 </section>
 
 <section class="services" id="services">
 <h2>Our Services</h2>
 <div class="service-container">
-<div class="card">Tyre Service</div>
-<div class="card">Car Washing</div>
-<div class="card">Fuel Service</div>
+<div class="card">🚗<br><br>Tyre Service</div>
+<div class="card">🧼<br><br>Car Washing</div>
+<div class="card">⛽<br><br>Fuel Service</div>
 </div>
+</section>
+
+<section class="why">
+<h2>Why Choose Us</h2>
+<p>
+✔ Fast Service <br>
+✔ Affordable Pricing <br>
+✔ Trusted by Customers <br>
+</p>
+</section>
+
+<section class="contact">
+<h2>Contact Us</h2>
+<p>📞 8638939143</p>
+<p>📍 Guwahati</p>
 </section>
 
 <footer>
