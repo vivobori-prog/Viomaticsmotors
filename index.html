@@ -35,14 +35,22 @@ nav{margin-left:auto;}
 nav a{margin-left:20px;color:white;text-decoration:none;transition:0.3s;}
 nav a:hover{color:#ffd000;}
 
-.call-btn{
-    margin-left:20px;
-    padding:8px 18px;
+.call.btn{
+    margin-top:60px; /* pushed more down */
+    padding:14px 35px;
     background:#ffd000;
     color:black;
-    border-radius:20px;
+    border-radius:30px;
     text-decoration:none;
-    font-weight:600;
+    position:relative;
+    transition:0.3s;
+    box-shadow:0 0 10px rgba(255,208,0,0.4);
+}
+
+.btn:hover{
+    transform:translateY(5px) scale(1.05);
+    box-shadow:0 0 25px rgba(255,208,0,0.9), 0 0 50px rgba(255,208,0,0.6);
+    background:#ffcc00;
 }
 
 /* HERO SIMPLE CLEAN BACKGROUND */
@@ -172,3 +180,4 @@ nav a{
 
 </body>
 </html>
+
