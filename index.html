@@ -12,54 +12,77 @@
 
 body{background:linear-gradient(135deg,#000,#111,#000);color:white;overflow-x:hidden;}
 
-header{position:sticky;top:0;z-index:1000;background:rgba(0,0,0,0.7);backdrop-filter:blur(10px);padding:15px 40px;display:flex;align-items:center;}
-header img{width:60px;position:absolute;left:50%;transform:translateX(-50%);} 
-nav{margin-left:auto;} nav a{margin-left:20px;color:white;text-decoration:none;transition:0.3s;} nav a:hover{color:#ffd000;}
-
+header{
+position:sticky;top:0;z-index:1000;
+background:rgba(0,0,0,0.7);backdrop-filter:blur(10px);
+padding:15px 40px;display:flex;align-items:center;
+}
+header img{width:60px;position:absolute;left:50%;transform:translateX(-50%);}
+nav{margin-left:auto;}
+nav a{margin-left:20px;color:white;text-decoration:none;transition:0.3s;}
+nav a:hover{color:#ffd000;}
 .call-btn{margin-left:20px;padding:8px 18px;background:#ffd000;color:black;border-radius:20px;text-decoration:none;font-weight:600;}
 
 .hero{height:100vh;display:flex;justify-content:center;align-items:center;text-align:center;}
-.hero h1{font-size:60px;color:#ffd000;text-shadow:0 0 5px #ffd000,0 0 10px #ffcc00;}
-.hero p{color:#ccc;margin-top:15px;font-size:18px;}
+.hero h1{font-size:60px;color:#ffd000;text-shadow:0 0 5px #ffd000;}
+.hero p{color:#ccc;margin-top:15px;}
 
-.gallery{padding:60px 20px;text-align:center;} .gallery h2{color:#ffd000;margin-bottom:30px;} .gallery img{width:90%;max-width:800px;border-radius:15px;box-shadow:0 0 20px rgba(255,208,0,0.3);} 
+.gallery{padding:60px 20px;text-align:center;}
+.gallery h2{color:#ffd000;margin-bottom:30px;}
+.gallery img{width:90%;max-width:800px;border-radius:15px;}
 
-.services{padding:80px 20px;text-align:center;} .services h2{margin-bottom:40px;font-size:36px;color:#ffd000;}
+.services{padding:80px 20px;text-align:center;}
+.services h2{margin-bottom:40px;color:#ffd000;}
 .service-container{display:flex;justify-content:center;gap:25px;flex-wrap:wrap;}
+.card{background:#111;padding:30px;border-radius:15px;width:220px;cursor:pointer;transition:0.4s;}
+.card:hover{transform:scale(1.1);box-shadow:0 0 20px #ffd000;}
 
-.card{background:#111;padding:30px;border-radius:15px;width:220px;transition:0.4s;box-shadow:0 0 10px rgba(255,208,0,0.1);cursor:pointer;}
-.card:hover{transform:scale(1.1);box-shadow:0 0 25px rgba(255,208,0,0.8);} 
-
-.form-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:flex;justify-content:center;align-items:center;opacity:0;visibility:hidden;transition:0.4s;}
+/* FORM */
+.form-modal{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.85);
+display:flex;justify-content:center;align-items:center;
+opacity:0;visibility:hidden;transition:0.4s;
+}
 .form-modal.active{opacity:1;visibility:visible;}
 
-.form-box{background:#111;padding:30px;border-radius:15px;width:90%;max-width:400px;transform:scale(0.8);transition:0.4s;box-shadow:0 0 25px rgba(255,208,0,0.5);} 
-.form-modal.active .form-box{transform:scale(1);} 
+.form-box{
+background:#111;padding:30px;border-radius:15px;width:90%;max-width:400px;
+transform:scale(0.8);transition:0.4s;
+}
+.form-modal.active .form-box{transform:scale(1);}
 
-.form-box h2{color:#ffd000;margin-bottom:20px;text-align:center;} 
+.close-btn{position:absolute;top:20px;right:25px;cursor:pointer;}
 
-.form-box input,.form-box select{width:100%;padding:10px;margin:10px 0;border:none;border-radius:8px;outline:none;} 
+.form-box h2{color:#ffd000;text-align:center;margin-bottom:20px;}
 
-.submit-btn{width:100%;padding:12px;background:#ffd000;border:none;border-radius:20px;font-weight:600;cursor:pointer;transition:0.3s;} 
-.submit-btn:hover{box-shadow:0 0 20px #ffd000;} 
+.form-box input,.form-box select{
+width:100%;padding:10px;margin:10px 0;border:none;border-radius:8px;
+}
 
-.close-btn{position:absolute;top:20px;right:20px;color:white;cursor:pointer;} 
+.submit-btn{
+width:100%;padding:12px;background:#ffd000;border:none;border-radius:20px;font-weight:600;cursor:pointer;
+}
 
-.success{display:none;text-align:center;color:#ffd000;margin-top:15px;} 
-.loading{display:none;text-align:center;margin-top:10px;color:#ffd000;}
+.loading,.success{text-align:center;color:#ffd000;margin-top:10px;display:none;}
 
-footer{text-align:center;padding:20px;background:#111;color:#888;} 
+footer{text-align:center;padding:20px;background:#111;color:#888;}
 
-.whatsapp-float{position:fixed;bottom:20px;right:20px;background:#25D366;color:white;border-radius:50%;width:55px;height:55px;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 0 15px rgba(0,0,0,0.4);cursor:pointer;z-index:999;}
+.whatsapp-float{
+position:fixed;bottom:20px;right:20px;background:#25D366;
+width:55px;height:55px;border-radius:50%;
+display:flex;align-items:center;justify-content:center;
+font-size:26px;cursor:pointer;
+}
 
-@media(max-width:768px){.hero h1{font-size:34px;} .card{width:90%;}}
+@media(max-width:768px){.hero h1{font-size:34px;}.card{width:90%;}}
 </style>
 </head>
 
 <body>
 
 <header>
-<img src="logo.png" alt="logo">
+<img src="logo.png">
 <nav>
 <a href="#">Home</a>
 <a href="#services">Services</a>
@@ -82,32 +105,41 @@ footer{text-align:center;padding:20px;background:#111;color:#888;}
 <section class="services" id="services">
 <h2>Our Services</h2>
 <div class="service-container">
-<div class="card" onclick="openForm('tyre')"><br><br>Tyre Service</div>
-<div class="card" onclick="openForm('wash')"><br><br>Car Washing</div>
-<div class="card" onclick="openForm('fuel')"><br><br>Fuel Service</div>
+<div class="card" onclick="openForm('tyre')">Tyre Service</div>
+<div class="card" onclick="openForm('wash')">Car Washing</div>
+<div class="card" onclick="openForm('fuel')">Fuel Service</div>
 </div>
 </section>
 
+<!-- FORM -->
 <div class="form-modal" id="formModal">
 <div class="form-box">
-<span class="close-btn" onclick="closeForm()"></span>
+<span class="close-btn" onclick="closeForm()">✖</span>
+
 <h2 id="formTitle">Book Service</h2>
-<input id="name" type="text" placeholder="Name">
-<input id="phone" type="tel" placeholder="Phone">
+
+<input id="name" placeholder="Name">
+<input id="phone" placeholder="Phone">
 <input id="date" type="date">
 <input id="time" type="time">
-<select id="home">
-<option value="">Option</option>
-<option>Yes</option>
-<option>No</option>
+
+<select id="home" onchange="toggleLocation()">
+<option value="">Select Option</option>
+<option value="Yes">Yes (Home Service)</option>
+<option value="No">No (Visit Shop)</option>
 </select>
-<button id="submitBtn" class="submit-btn" onclick="submitForm()" disabled>Submit</button>
-<button class="submit-btn" style="margin-top:10px;background:#222;color:#ffd000;" onclick="getLocation()"> Use My Location</button>
-<div class="loading" id="loadingMsg"> Sending...</div>
-<div class="success" id="locMsg" style="display:none;"> Location captured</div>
-<div class="success" id="distanceMsg" style="display:none;">Distance: -- km</div>
-<div class="success" id="priceMsg" style="display:none;">Delivery: ₹50</div>
-<div class="success" id="successMsg"> Booking Sent!</div>
+
+<button id="submitBtn" class="submit-btn" onclick="submitForm()">Submit</button>
+
+<button id="locBtn" class="submit-btn" 
+style="margin-top:10px;background:#222;color:#ffd000;display:none;" 
+onclick="getLocation()">Use My Location</button>
+
+<div class="loading" id="loadingMsg">Sending...</div>
+<div class="success" id="distanceMsg"></div>
+<div class="success" id="priceMsg"></div>
+<div class="success" id="successMsg">Booking Sent!</div>
+
 </div>
 </div>
 
@@ -115,143 +147,124 @@ footer{text-align:center;padding:20px;background:#111;color:#888;}
 <p>© 2026 Viomatics Motors</p>
 </footer>
 
-<div class="whatsapp-float" onclick="openWhatsApp()"></div>
+<div class="whatsapp-float" onclick="openWhatsApp()">💬</div>
 
 <script>
-// GLOBAL VARIABLES
-let currentService = '';
-window.userLocation = '';
-window.userDistance = 0;
+let currentService='';
+let userLocation='';
+let userDistance=0;
 
 // OPEN FORM
-window.openForm = function(type){
-    currentService = type;
-    document.getElementById('formModal').classList.add('active');
+function openForm(type){
+currentService=type;
+document.getElementById('formModal').classList.add('active');
 
-    const title = document.getElementById('formTitle');
-    const dropdown = document.getElementById('home');
-
-    if(type === 'tyre'){
-        title.innerText = 'Book Tyre Service';
-        dropdown.options[0].text = 'Home Repair?';
-    } else if(type === 'wash'){
-        title.innerText = 'Book Car/Bike Washing';
-        dropdown.options[0].text = 'Home Washing?';
-    } else if(type === 'fuel'){
-        title.innerText = 'Emergency Fuel Service';
-        dropdown.options[0].text = 'Emergency Delivery?';
-    }
+if(type==='tyre') document.getElementById('formTitle').innerText='Book Tyre Service';
+if(type==='wash') document.getElementById('formTitle').innerText='Book Washing';
+if(type==='fuel') document.getElementById('formTitle').innerText='Emergency Fuel';
 }
 
-// CLOSE FORM
-window.closeForm = function(){
-    document.getElementById('formModal').classList.remove('active');
+// CLOSE
+function closeForm(){
+document.getElementById('formModal').classList.remove('active');
 }
 
-// GET LOCATION
-window.getLocation = function(){
-    if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(function(position){
-            let lat = position.coords.latitude;
-            let lon = position.coords.longitude;
-            window.userLocation = lat + ',' + lon;
+// SHOW/HIDE LOCATION BUTTON
+function toggleLocation(){
+let home=document.getElementById('home').value;
 
-            // SHOP LOCATION (Temera Chariali - updated)
-            const shopLat = 26.18;
-            const shopLon = 91.78;
-
-            function getDistance(lat1, lon1, lat2, lon2){
-                const R = 6371;
-                const dLat = (lat2-lat1) * Math.PI/180;
-                const dLon = (lon2-lon1) * Math.PI/180;
-                const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                          Math.cos(lat1 * Math.PI/180) * Math.cos(lat2 * Math.PI/180) *
-                          Math.sin(dLon/2) * Math.sin(dLon/2);
-                const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-                return R * c;
-            }
-
-            let distance = getDistance(shopLat, shopLon, lat, lon);
-            window.userDistance = distance;
-
-            document.getElementById('distanceMsg').innerText = ' Distance: ' + distance.toFixed(2) + ' km';
-            document.getElementById('distanceMsg').style.display = 'block';
-
-            if(distance <= 5){
-                document.getElementById('priceMsg').innerText = 'Delivery: ₹50';
-                document.getElementById('submitBtn').disabled = false;
-                document.getElementById('submitBtn').style.opacity = '1';
-            } else {
-                document.getElementById('priceMsg').innerText = ' Service not available (over 5km)';
-                document.getElementById('submitBtn').disabled = true;
-                document.getElementById('submitBtn').style.opacity = '0.5';
-            }
-            document.getElementById('priceMsg').style.display = 'block';
-
-        }, function(){
-            alert('Location access denied');
-        });
-    } else {
-        alert('Geolocation not supported');
-    }
+if(home==='Yes'){
+document.getElementById('locBtn').style.display='block';
+}else{
+document.getElementById('locBtn').style.display='none';
+userLocation='';
+document.getElementById('distanceMsg').style.display='none';
+document.getElementById('priceMsg').style.display='none';
+}
 }
 
-// SUBMIT FORM
-window.submitForm = function(){
-    let name=document.getElementById('name').value;
-    let phone=document.getElementById('phone').value;
-    let date=document.getElementById('date').value;
-    let time=document.getElementById('time').value;
-    let home=document.getElementById('home').value;
+// GET LOCATION (NO LIMIT)
+function getLocation(){
+navigator.geolocation.getCurrentPosition(function(pos){
 
-    if(!name || !phone || !date || !time || !home){
-        alert('Fill all fields');
-        return;
-    }
+let lat=pos.coords.latitude;
+let lon=pos.coords.longitude;
+userLocation=lat+','+lon;
 
-    // STRICT CHECK: MUST HAVE LOCATION FIRST
-    if(!window.userLocation){
-        alert('Please click "Use My Location" first');
-        return;
-    }
+const shopLat=26.18;
+const shopLon=91.78;
 
-    // AUTO REJECT ABOVE 5KM
-    if(window.userDistance > 5){
-        alert(' Service not available beyond 5 km');
-        return;
-    }
-
-    document.getElementById('loadingMsg').style.display='block';
-
-    let serviceName = '';
-    if(currentService === 'tyre') serviceName = 'Tyre Service';
-    if(currentService === 'wash') serviceName = 'Car/Bike Washing';
-    if(currentService === 'fuel') serviceName = 'Emergency Fuel Service';
-
-    let optionLabel = '';
-    if(currentService === 'tyre') optionLabel = 'Home Repair';
-    if(currentService === 'wash') optionLabel = 'Home Washing';
-    if(currentService === 'fuel') optionLabel = 'Emergency Delivery';
-
-    let locationText = %0ALocation: https://maps.google.com/?q=${window.userLocation};
-
-    let msg=New Booking:%0AService: ${serviceName}%0AName: ${name}%0APhone: ${phone}%0ADate: ${date}%0ATime: ${time}%0A${optionLabel}: ${home}${locationText};
-
-    window.open(https://wa.me/918638939143?text=${msg},'_blank');
-
-    setTimeout(()=>{
-        document.getElementById('loadingMsg').style.display='none';
-        document.getElementById('successMsg').style.display='block';
-        setTimeout(()=>{
-            closeForm();
-            document.getElementById('successMsg').style.display='none';
-        },2000);
-    },1000);
+function distance(lat1,lon1,lat2,lon2){
+let R=6371;
+let dLat=(lat2-lat1)*Math.PI/180;
+let dLon=(lon2-lon1)*Math.PI/180;
+let a=Math.sin(dLat/2)**2+
+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*
+Math.sin(dLon/2)**2;
+return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
 }
 
-// FLOAT BUTTON
-window.openWhatsApp = function(){
-    window.open('https://wa.me/918638939143','_blank');
+userDistance=distance(shopLat,shopLon,lat,lon);
+
+document.getElementById('distanceMsg').innerText='Distance: '+userDistance.toFixed(2)+' km';
+document.getElementById('distanceMsg').style.display='block';
+
+document.getElementById('priceMsg').innerText='Delivery charge may vary';
+document.getElementById('priceMsg').style.display='block';
+
+});
+}
+
+// SUBMIT
+function submitForm(){
+
+let name=document.getElementById('name').value;
+let phone=document.getElementById('phone').value;
+let date=document.getElementById('date').value;
+let time=document.getElementById('time').value;
+let home=document.getElementById('home').value;
+
+if(!name||!phone||!date||!time||!home){
+alert('Fill all fields');
+return;
+}
+
+if(home==='Yes' && !userLocation){
+alert('Please use location for home service');
+return;
+}
+
+document.getElementById('loadingMsg').style.display='block';
+
+let serviceName='';
+if(currentService==='tyre') serviceName='Tyre Service';
+if(currentService==='wash') serviceName='Car Washing';
+if(currentService==='fuel') serviceName='Fuel Service';
+
+let msg=`New Booking:
+Service: ${serviceName}
+Name: ${name}
+Phone: ${phone}
+Date: ${date}
+Time: ${time}
+Home Service: ${home}
+${userLocation ? "Location: https://maps.google.com/?q="+userLocation : ""}`;
+
+window.open(`https://wa.me/918638939143?text=${encodeURIComponent(msg)}`,'_blank');
+
+setTimeout(()=>{
+document.getElementById('loadingMsg').style.display='none';
+document.getElementById('successMsg').style.display='block';
+setTimeout(()=>{
+closeForm();
+document.getElementById('successMsg').style.display='none';
+},2000);
+},1000);
+}
+
+// WHATSAPP
+function openWhatsApp(){
+window.open('https://wa.me/918638939143','_blank');
 }
 </script>
 
