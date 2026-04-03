@@ -35,18 +35,7 @@ nav{margin-left:auto;}
 nav a{margin-left:20px;color:white;text-decoration:none;transition:0.3s;}
 nav a:hover{color:#ffd000;}
 
-.call.btn{
-    margin-top:60px; /* pushed more down */
-    padding:14px 35px;
-    background:#ffd000;
-    color:black;
-    border-radius:30px;
-    text-decoration:none;
-    position:relative;
-    transition:0.3s;
-    box-shadow:0 0 10px rgba(255,208,0,0.4);
-}
-
+.call
 .btn:hover{
     transform:translateY(5px) scale(1.05);
     box-shadow:0 0 25px rgba(255,208,0,0.9), 0 0 50px rgba(255,208,0,0.6);
@@ -70,6 +59,13 @@ nav a:hover{color:#ffd000;}
 .hero h1{
     font-size:55px;
     color:#ffd000;
+    text-shadow:
+        0 0 5px #ffd000,
+        0 0 10px #ffd000,
+        0 0 20px #ffcc00,
+        0 0 40px #ffcc00,
+        0 0 80px #ffb800;
+    letter-spacing:2px;
 }
 
 .hero p{
@@ -161,7 +157,7 @@ nav a{
 <div class="hero-content">
 <h1>VIOMATICS MOTORS</h1>
 <p>Tyre • Wash • Fuel Services</p>
-<a href="#services" class="btn">Explore Services</a>
+
 </div>
 </section>
 
@@ -180,4 +176,3 @@ nav a{
 
 </body>
 </html>
-
