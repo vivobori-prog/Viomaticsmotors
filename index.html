@@ -5,75 +5,88 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Viomatics Motors</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: #0b0b0b;
-    color: white;
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{background:#000;color:white;overflow-x:hidden;}
+
+header{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:15px 40px;background:rgba(0,0,0,0.8);
+    backdrop-filter:blur(10px);position:sticky;top:0;z-index:1000;
 }
 
-header {
-    background: #111;
-    padding: 15px;
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
+header img{width:60px;}
+
+nav a{
+    margin-left:20px;color:white;text-decoration:none;
+    transition:0.3s;font-weight:500;
 }
 
-.hero {
-    text-align: center;
-    padding: 50px 20px;
+nav a:hover{color:#ffd000;}
+
+.hero{
+    height:90vh;display:flex;flex-direction:column;
+    justify-content:center;align-items:center;text-align:center;
+    background:radial-gradient(circle at top,#111,#000);
+    animation:fadeIn 1.5s ease;
 }
 
-.hero h1 {
-    font-size: 40px;
-    color: #00ffcc;
+.hero img{
+    width:120px;margin-bottom:20px;
+    animation:float 3s ease-in-out infinite;
 }
 
-.services {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
-    flex-wrap: wrap;
+.hero h1{font-size:55px;font-weight:700;color:#ffd000;}
+
+.hero p{color:#aaa;margin-top:10px;}
+
+.btn{
+    margin-top:25px;padding:14px 35px;
+    background:#ffd000;color:black;border-radius:30px;
+    text-decoration:none;font-weight:600;transition:0.4s;
 }
 
-.card {
-    background: #1a1a1a;
-    padding: 20px;
-    border-radius: 10px;
-    width: 200px;
-    text-align: center;
+.btn:hover{transform:scale(1.1);background:#ffb800;}
+
+.services{padding:80px 20px;text-align:center;}
+
+.services h2{margin-bottom:40px;font-size:36px;color:#ffd000;}
+
+.service-container{
+    display:flex;justify-content:center;gap:25px;flex-wrap:wrap;
 }
 
-.card:hover {
-    background: #222;
+.card{
+    background:linear-gradient(145deg,#1a1a1a,#0f0f0f);
+    padding:30px;border-radius:15px;width:220px;
+    transition:0.4s;
+    box-shadow:0 0 10px rgba(255,208,0,0.1);
 }
 
-.form-section {
-    padding: 30px;
-    text-align: center;
+.card:hover{
+    transform:translateY(-10px) scale(1.05);
+    box-shadow:0 0 25px rgba(255,208,0,0.5);
 }
 
-input, select, button {
-    padding: 10px;
-    margin: 10px;
-    border-radius: 5px;
-    border: none;
+footer{
+    text-align:center;padding:20px;background:#111;color:#888;
 }
 
-button {
-    background: #00ffcc;
-    color: black;
-    cursor: pointer;
-    font-weight: bold;
+@keyframes float{
+    0%,100%{transform:translateY(0);} 
+    50%{transform:translateY(-10px);} 
 }
 
-button:hover {
-    background: #00ccaa;
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(20px);} 
+    to{opacity:1; transform:translateY(0);} 
+}
+
+@media(max-width:768px){
+    .hero h1{font-size:35px;}
 }
 </style>
 </head>
@@ -81,42 +94,32 @@ button:hover {
 <body>
 
 <header>
-Viomatics Motors 
+<img src="logo.jpeg" alt="logo">
+<nav>
+<a href="#">Home</a>
+<a href="#services">Services</a>
+</nav>
 </header>
 
-<div class="hero">
-<h1>Book Your Car Service</h1>
-<p>Fast • Reliable • Professional</p>
+<section class="hero">
+<img src="logo.jpeg" alt="logo">
+<h1>VIOMATICS MOTORS</h1>
+<p>Tyre • Wash • Fuel Services</p>
+<a href="#services" class="btn">Explore Services</a>
+</section>
+
+<section class="services" id="services">
+<h2>Our Services</h2>
+<div class="service-container">
+<div class="card">Tyre Service</div>
+<div class="card">Car Washing</div>
+<div class="card">Fuel Service</div>
 </div>
+</section>
 
-<div class="services">
-<div class="card">Oil Change</div>
-<div class="card">Car Wash</div>
-<div class="card">Engine Repair</div>
-<div class="card">Full Service</div>
-</div>
-
-<div class="form-section">
-<h2>Book Appointment</h2>
-
-<form>
-<input type="text" placeholder="Your Name" required><br>
-<input type="tel" placeholder="Phone Number" required><br>
-
-<select required>
-<option value="">Select Service</option>
-<option>Oil Change</option>
-<option>Car Wash</option>
-<option>Engine Repair</option>
-<option>Full Service</option>
-</select><br>
-
-<input type="date" required><br>
-
-<button type="submit">Book Now</button>
-</form>
-
-</div>
+<footer>
+<p>© 2026 Viomatics Motors</p>
+</footer>
 
 </body>
 </html>
