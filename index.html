@@ -12,6 +12,7 @@
 
 body{background:linear-gradient(135deg,#000,#111,#000);color:white;overflow-x:hidden;}
 
+/* HEADER */
 header{
 position:sticky;top:0;z-index:1000;
 background:rgba(0,0,0,0.7);backdrop-filter:blur(10px);
@@ -23,14 +24,37 @@ nav a{margin-left:20px;color:white;text-decoration:none;transition:0.3s;}
 nav a:hover{color:#ffd000;}
 .call-btn{margin-left:20px;padding:8px 18px;background:#ffd000;color:black;border-radius:20px;text-decoration:none;font-weight:600;}
 
+/* HERO */
 .hero{height:100vh;display:flex;justify-content:center;align-items:center;text-align:center;}
 .hero h1{font-size:60px;color:#ffd000;text-shadow:0 0 5px #ffd000;}
 .hero p{color:#ccc;margin-top:15px;}
 
+/* GALLERY */
 .gallery{padding:60px 20px;text-align:center;}
 .gallery h2{color:#ffd000;margin-bottom:30px;}
-.gallery img{width:90%;max-width:800px;border-radius:15px;}
 
+.gallery-grid{
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.gallery-grid img{
+width:300px;
+height:200px;
+object-fit:cover;
+border-radius:15px;
+box-shadow:0 0 15px rgba(255,208,0,0.3);
+transition:0.4s;
+}
+
+.gallery-grid img:hover{
+transform:scale(1.05);
+box-shadow:0 0 25px rgba(255,208,0,0.8);
+}
+
+/* SERVICES */
 .services{padding:80px 20px;text-align:center;}
 .services h2{margin-bottom:40px;color:#ffd000;}
 .service-container{display:flex;justify-content:center;gap:25px;flex-wrap:wrap;}
@@ -52,7 +76,7 @@ transform:scale(0.8);transition:0.4s;
 }
 .form-modal.active .form-box{transform:scale(1);}
 
-.close-btn{position:absolute;top:20px;right:25px;cursor:pointer;}
+.close-btn{position:absolute;top:20px;right:25px;cursor:pointer;font-size:20px;}
 
 .form-box h2{color:#ffd000;text-align:center;margin-bottom:20px;}
 
@@ -75,7 +99,11 @@ display:flex;align-items:center;justify-content:center;
 font-size:26px;cursor:pointer;
 }
 
-@media(max-width:768px){.hero h1{font-size:34px;}.card{width:90%;}}
+@media(max-width:768px){
+.hero h1{font-size:34px;}
+.card{width:90%;}
+.gallery-grid img{width:90%;}
+}
 </style>
 </head>
 
@@ -97,9 +125,16 @@ font-size:26px;cursor:pointer;
 </div>
 </section>
 
+<!-- UPDATED GALLERY -->
 <section class="gallery">
 <h2>Our Work</h2>
-<img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7">
+
+<div class="gallery-grid">
+<img src="https://images.unsplash.com/photo-1607860108855-64acf2078ed9" alt="Car Wash">
+<img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537" alt="Tyre Repair">
+<img src="https://images.unsplash.com/photo-1593941707882-a5bac6861d75" alt="Fuel Service">
+</div>
+
 </section>
 
 <section class="services" id="services">
@@ -154,7 +189,6 @@ let currentService='';
 let userLocation='';
 let userDistance=0;
 
-// OPEN FORM
 function openForm(type){
 currentService=type;
 document.getElementById('formModal').classList.add('active');
@@ -164,12 +198,10 @@ if(type==='wash') document.getElementById('formTitle').innerText='Book Washing';
 if(type==='fuel') document.getElementById('formTitle').innerText='Emergency Fuel';
 }
 
-// CLOSE
 function closeForm(){
 document.getElementById('formModal').classList.remove('active');
 }
 
-// SHOW/HIDE LOCATION BUTTON
 function toggleLocation(){
 let home=document.getElementById('home').value;
 
@@ -183,7 +215,6 @@ document.getElementById('priceMsg').style.display='none';
 }
 }
 
-// GET LOCATION (NO LIMIT)
 function getLocation(){
 navigator.geolocation.getCurrentPosition(function(pos){
 
@@ -215,7 +246,6 @@ document.getElementById('priceMsg').style.display='block';
 });
 }
 
-// SUBMIT
 function submitForm(){
 
 let name=document.getElementById('name').value;
@@ -262,7 +292,6 @@ document.getElementById('successMsg').style.display='none';
 },1000);
 }
 
-// WHATSAPP
 function openWhatsApp(){
 window.open('https://wa.me/918638939143','_blank');
 }
