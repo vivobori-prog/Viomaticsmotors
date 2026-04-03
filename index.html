@@ -101,7 +101,7 @@ footer{text-align:center;padding:20px;background:#111;color:#888;}
 <option>Yes</option>
 <option>No</option>
 </select>
-<button class="submit-btn" onclick="submitForm()">Submit</button>
+<button id="submitBtn" class="submit-btn" onclick="submitForm()" disabled>Submit</button>
 <button class="submit-btn" style="margin-top:10px;background:#222;color:#ffd000;" onclick="getLocation()">📍 Use My Location</button>
 <div class="loading" id="loadingMsg">⏳ Sending...</div>
 <div class="success" id="locMsg" style="display:none;">📍 Location captured</div>
@@ -156,8 +156,9 @@ window.getLocation = function(){
             let lon = position.coords.longitude;
             window.userLocation = lat + ',' + lon;
 
-            const shopLat = 26.1445;
-            const shopLon = 91.7362;
+            // SHOP LOCATION (Temera Chariali - updated)
+            const shopLat = 26.18;
+            const shopLon = 91.78;
 
             function getDistance(lat1, lon1, lat2, lon2){
                 const R = 6371;
@@ -173,13 +174,17 @@ window.getLocation = function(){
             let distance = getDistance(shopLat, shopLon, lat, lon);
             window.userDistance = distance;
 
-            document.getElementById('distanceMsg').innerText = 'Distance: ' + distance.toFixed(2) + ' km';
+            document.getElementById('distanceMsg').innerText = '📏 Distance: ' + distance.toFixed(2) + ' km';
             document.getElementById('distanceMsg').style.display = 'block';
 
             if(distance <= 5){
                 document.getElementById('priceMsg').innerText = 'Delivery: ₹50';
+                document.getElementById('submitBtn').disabled = false;
+                document.getElementById('submitBtn').style.opacity = '1';
             } else {
                 document.getElementById('priceMsg').innerText = '❌ Service not available (over 5km)';
+                document.getElementById('submitBtn').disabled = true;
+                document.getElementById('submitBtn').style.opacity = '0.5';
             }
             document.getElementById('priceMsg').style.display = 'block';
 
@@ -232,7 +237,7 @@ window.submitForm = function(){
 
     let msg=`New Booking:%0AService: ${serviceName}%0AName: ${name}%0APhone: ${phone}%0ADate: ${date}%0ATime: ${time}%0A${optionLabel}: ${home}${locationText}`;
 
-    window.open(`https://wa.me/918638939143?text=${msg}`,'_blank');(`https://wa.me/918638939143?text=${msg}`,'_blank');
+    window.open(`https://wa.me/918638939143?text=${msg}`,'_blank');
 
     setTimeout(()=>{
         document.getElementById('loadingMsg').style.display='none';
