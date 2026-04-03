@@ -154,7 +154,9 @@ if(!name || !phone || !date || !time || !home){alert('Fill all fields');return;}
 
 // REJECT IF DISTANCE > 5KM
 if(window.userDistance && window.userDistance > 5){
-    alert('Service
+    alert('Service not available beyond 5km');
+    return;
+}
 
 document.getElementById('loadingMsg').style.display='block';
 
