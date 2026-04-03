@@ -10,167 +10,49 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 
-body{
-    background:linear-gradient(135deg,#000,#111,#000);
-    color:white;
-    overflow-x:hidden;
-}
+body{background:linear-gradient(135deg,#000,#111,#000);color:white;overflow-x:hidden;}
 
-header{
-    position:sticky;
-    top:0;
-    z-index:1000;
-    background:rgba(0,0,0,0.7);
-    backdrop-filter:blur(10px);
-    padding:15px 40px;
-    display:flex;
-    align-items:center;
-}
+header{position:sticky;top:0;z-index:1000;background:rgba(0,0,0,0.7);backdrop-filter:blur(10px);padding:15px 40px;display:flex;align-items:center;}
+header img{width:60px;position:absolute;left:50%;transform:translateX(-50%);} 
+nav{margin-left:auto;} nav a{margin-left:20px;color:white;text-decoration:none;transition:0.3s;} nav a:hover{color:#ffd000;}
 
-header img{
-    width:60px;
-    position:absolute;
-    left:50%;
-    transform:translateX(-50%);
-}
+.call-btn{margin-left:20px;padding:8px 18px;background:#ffd000;color:black;border-radius:20px;text-decoration:none;font-weight:600;}
 
-nav{margin-left:auto;}
-nav a{margin-left:20px;color:white;text-decoration:none;transition:0.3s;}
-nav a:hover{color:#ffd000;}
-
-.call-btn{
-    margin-left:20px;
-    padding:8px 18px;
-    background:#ffd000;
-    color:black;
-    border-radius:20px;
-    text-decoration:none;
-    font-weight:600;
-}
-
-.hero{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-}
-
-.hero h1{
-    font-size:60px;
-    color:#ffd000;
-    text-shadow:0 0 5px #ffd000,0 0 10px #ffcc00;
-}
-
+.hero{height:100vh;display:flex;justify-content:center;align-items:center;text-align:center;}
+.hero h1{font-size:60px;color:#ffd000;text-shadow:0 0 5px #ffd000,0 0 10px #ffcc00;}
 .hero p{color:#ccc;margin-top:15px;font-size:18px;}
 
-.gallery{padding:60px 20px;text-align:center;}
-.gallery h2{color:#ffd000;margin-bottom:30px;}
-.gallery img{width:90%;max-width:800px;border-radius:15px;box-shadow:0 0 20px rgba(255,208,0,0.3);}
+.gallery{padding:60px 20px;text-align:center;} .gallery h2{color:#ffd000;margin-bottom:30px;} .gallery img{width:90%;max-width:800px;border-radius:15px;box-shadow:0 0 20px rgba(255,208,0,0.3);} 
 
-.services{padding:80px 20px;text-align:center;}
-.services h2{margin-bottom:40px;font-size:36px;color:#ffd000;}
-
+.services{padding:80px 20px;text-align:center;} .services h2{margin-bottom:40px;font-size:36px;color:#ffd000;}
 .service-container{display:flex;justify-content:center;gap:25px;flex-wrap:wrap;}
 
-.card{
-    background:#111;
-    padding:30px;
-    border-radius:15px;
-    width:220px;
-    transition:0.4s;
-    box-shadow:0 0 10px rgba(255,208,0,0.1);
-    cursor:pointer;
-}
+.card{background:#111;padding:30px;border-radius:15px;width:220px;transition:0.4s;box-shadow:0 0 10px rgba(255,208,0,0.1);cursor:pointer;}
+.card:hover{transform:scale(1.1);box-shadow:0 0 25px rgba(255,208,0,0.8);} 
 
-.card:hover{
-    transform:scale(1.1);
-    box-shadow:0 0 25px rgba(255,208,0,0.8);
-}
+.form-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:flex;justify-content:center;align-items:center;opacity:0;visibility:hidden;transition:0.4s;}
+.form-modal.active{opacity:1;visibility:visible;}
 
-/* FORM MODAL */
-.form-modal{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.8);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    opacity:0;
-    visibility:hidden;
-    transition:0.4s;
-}
+.form-box{background:#111;padding:30px;border-radius:15px;width:90%;max-width:400px;transform:scale(0.8);transition:0.4s;box-shadow:0 0 25px rgba(255,208,0,0.5);} 
+.form-modal.active .form-box{transform:scale(1);} 
 
-.form-modal.active{
-    opacity:1;
-    visibility:visible;
-}
+.form-box h2{color:#ffd000;margin-bottom:20px;text-align:center;} 
 
-.form-box{
-    background:#111;
-    padding:30px;
-    border-radius:15px;
-    width:90%;
-    max-width:400px;
-    transform:scale(0.8);
-    transition:0.4s;
-    box-shadow:0 0 25px rgba(255,208,0,0.5);
-}
+.form-box input,.form-box select{width:100%;padding:10px;margin:10px 0;border:none;border-radius:8px;outline:none;} 
 
-.form-modal.active .form-box{
-    transform:scale(1);
-}
+.submit-btn{width:100%;padding:12px;background:#ffd000;border:none;border-radius:20px;font-weight:600;cursor:pointer;transition:0.3s;} 
+.submit-btn:hover{box-shadow:0 0 20px #ffd000;} 
 
-.form-box h2{
-    color:#ffd000;
-    margin-bottom:20px;
-    text-align:center;
-}
+.close-btn{position:absolute;top:20px;right:20px;color:white;cursor:pointer;} 
 
-.form-box input, .form-box select{
-    width:100%;
-    padding:10px;
-    margin:10px 0;
-    border:none;
-    border-radius:8px;
-    outline:none;
-}
+.success{display:none;text-align:center;color:#ffd000;margin-top:15px;} 
+.loading{display:none;text-align:center;margin-top:10px;color:#ffd000;}
 
-.submit-btn{
-    width:100%;
-    padding:12px;
-    background:#ffd000;
-    border:none;
-    border-radius:20px;
-    font-weight:600;
-    cursor:pointer;
-    transition:0.3s;
-}
+footer{text-align:center;padding:20px;background:#111;color:#888;} 
 
-.submit-btn:hover{
-    box-shadow:0 0 20px #ffd000;
-}
+.whatsapp-float{position:fixed;bottom:20px;right:20px;background:#25D366;color:white;border-radius:50%;width:55px;height:55px;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 0 15px rgba(0,0,0,0.4);cursor:pointer;z-index:999;}
 
-.close-btn{
-    position:absolute;
-    top:20px;
-    right:20px;
-    color:white;
-    cursor:pointer;
-}
-
-.why, .contact{padding:60px 20px;text-align:center;}
-.why h2, .contact h2{color:#ffd000;}
-
-footer{text-align:center;padding:20px;background:#111;color:#888;}
-
-@media(max-width:768px){
-.hero h1{font-size:34px;}
-.card{width:90%;}
-}
+@media(max-width:768px){.hero h1{font-size:34px;} .card{width:90%;}}
 </style>
 </head>
 
@@ -200,53 +82,88 @@ footer{text-align:center;padding:20px;background:#111;color:#888;}
 <section class="services" id="services">
 <h2>Our Services</h2>
 <div class="service-container">
-<div class="card" onclick="openForm()">🚗<br><br>Tyre Service</div>
-<div class="card">🧼<br><br>Car Washing</div>
+<div class="card" onclick="openForm('tyre')">🚗<br><br>Tyre Service</div>
+<div class="card" onclick="openForm('wash')">🧼<br><br>Car Washing</div>
 <div class="card">⛽<br><br>Fuel Service</div>
 </div>
 </section>
 
-<!-- FORM -->
 <div class="form-modal" id="formModal">
 <div class="form-box">
 <span class="close-btn" onclick="closeForm()">✖</span>
-<h2>Book Tyre Service</h2>
-<input type="text" placeholder="Name">
-<input type="tel" placeholder="Phone">
-<input type="date">
-<input type="time">
-<select>
-<option>Home Repair?</option>
+<h2 id="formTitle">Book Service</h2>
+<input id="name" type="text" placeholder="Name">
+<input id="phone" type="tel" placeholder="Phone">
+<input id="date" type="date">
+<input id="time" type="time">
+<select id="home">
+<option value="">Option</option>
 <option>Yes</option>
 <option>No</option>
 </select>
-<button class="submit-btn">Submit</button>
+<button class="submit-btn" onclick="submitForm()">Submit</button>
+<div class="loading" id="loadingMsg">⏳ Sending...</div>
+<div class="success" id="successMsg">✅ Booking Sent!</div>
 </div>
 </div>
-
-<section class="why">
-<h2>Why Choose Us</h2>
-<p>✔ Fast Service <br>✔ Affordable Pricing <br>✔ Trusted by Customers</p>
-</section>
-
-<section class="contact">
-<h2>Contact Us</h2>
-<p>📞 8638939143</p>
-<p>📍 Guwahati</p>
-</section>
 
 <footer>
 <p>© 2026 Viomatics Motors</p>
 </footer>
 
+<div class="whatsapp-float" onclick="openWhatsApp()">💬</div>
+
 <script>
-function openForm(){
+let currentService = '';
+
+function openForm(type){
+    currentService = type;
     document.getElementById('formModal').classList.add('active');
+
+    const title = document.getElementById('formTitle');
+    const dropdown = document.getElementById('home');
+
+    if(type === 'tyre'){
+        title.innerText = 'Book Tyre Service';
+        dropdown.options[0].text = 'Home Repair?';
+    } else if(type === 'wash'){
+        title.innerText = 'Book Car/Bike Washing';
+        dropdown.options[0].text = 'Home Washing?';
+    }
+}
+function closeForm(){document.getElementById('formModal').classList.remove('active');}
+
+function submitForm(){
+let name=document.getElementById('name').value;
+let phone=document.getElementById('phone').value;
+let date=document.getElementById('date').value;
+let time=document.getElementById('time').value;
+let home=document.getElementById('home').value;
+
+if(!name || !phone || !date || !time || !home){alert('Fill all fields');return;}
+
+document.getElementById('loadingMsg').style.display='block';
+
+let serviceName = currentService === 'wash' ? 'Car/Bike Washing' : 'Tyre Service';
+let optionLabel = currentService === 'wash' ? 'Home Washing' : 'Home Repair';
+
+let msg=`New Booking:%0AService: ${serviceName}%0AName: ${name}%0APhone: ${phone}%0ADate: ${date}%0ATime: ${time}%0A${optionLabel}: ${home}`;
+window.open(`https://wa.me/918638939143?text=${msg}`,'_blank');
+
+fetch("YOUR_GOOGLE_SCRIPT_URL",{
+method:"POST",
+body:JSON.stringify({name,phone,date,time,home}),
+headers:{"Content-Type":"application/json"}
+});
+
+setTimeout(()=>{
+document.getElementById('loadingMsg').style.display='none';
+document.getElementById('successMsg').style.display='block';
+setTimeout(()=>{closeForm();document.getElementById('successMsg').style.display='none';},2000);
+},1000);
 }
 
-function closeForm(){
-    document.getElementById('formModal').classList.remove('active');
-}
+function openWhatsApp(){window.open('https://wa.me/918638939143','_blank');}
 </script>
 
 </body>
