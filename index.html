@@ -102,7 +102,11 @@ footer{text-align:center;padding:20px;background:#111;color:#888;}
 <option>No</option>
 </select>
 <button class="submit-btn" onclick="submitForm()">Submit</button>
+<button class="submit-btn" style="margin-top:10px;background:#222;color:#ffd000;" onclick="getLocation()">📍 Use My Location</button>
 <div class="loading" id="loadingMsg">⏳ Sending...</div>
+<div class="success" id="locMsg" style="display:none;">📍 Location captured</div>
+<div class="success" id="distanceMsg" style="display:none;">Distance: -- km</div>
+<div class="success" id="priceMsg" style="display:none;">Delivery: ₹50</div>
 <div class="success" id="successMsg">✅ Booking Sent!</div>
 </div>
 </div>
@@ -148,6 +152,10 @@ let home=document.getElementById('home').value;
 
 if(!name || !phone || !date || !time || !home){alert('Fill all fields');return;}
 
+// REJECT IF DISTANCE > 5KM
+if(window.userDistance && window.userDistance > 5){
+    alert('Service
+
 document.getElementById('loadingMsg').style.display='block';
 
 let serviceName = '';
@@ -159,7 +167,9 @@ if(currentService === 'tyre') optionLabel = 'Home Repair';
 if(currentService === 'wash') optionLabel = 'Home Washing';
 if(currentService === 'fuel') optionLabel = 'Emergency Delivery';
 
-let msg=`New Booking:%0AService: ${serviceName}%0AName: ${name}%0APhone: ${phone}%0ADate: ${date}%0ATime: ${time}%0A${optionLabel}: ${home}`;
+let locationText = window.userLocation ? `%0ALocation: https://maps.google.com/?q=${window.userLocation}` : '';
+
+let msg=`New Booking:%0AService: ${serviceName}%0AName: ${name}%0APhone: ${phone}%0ADate: ${date}%0ATime: ${time}%0A${optionLabel}: ${home}${locationText}`;
 window.open(`https://wa.me/918638939143?text=${msg}`,'_blank');
 
 fetch("YOUR_GOOGLE_SCRIPT_URL",{
@@ -176,6 +186,64 @@ setTimeout(()=>{closeForm();document.getElementById('successMsg').style.display=
 }
 
 function openWhatsApp(){window.open('https://wa.me/918638939143','_blank');}
+
+// GET LIVE LOCATION (FREE)
+function getLocation(){
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(function(position){
+            let lat = position.coords.latitude;
+            let lon = position.coords.longitude;
+            window.userLocation = lat + ',' + lon;
+
+            // YOUR SHOP LOCATION (CHANGE THIS)
+            const shopLat = 26.1445;
+            const shopLon = 91.7362;
+
+            // DISTANCE CALCULATION (Haversine)
+            function getDistance(lat1, lon1, lat2, lon2){
+                const R = 6371;
+                const dLat = (lat2-lat1) * Math.PI/180;
+                const dLon = (lon2-lon1) * Math.PI/180;
+                const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                          Math.cos(lat1 * Math.PI/180) * Math.cos(lat2 * Math.PI/180) *
+                          Math.sin(dLon/2) * Math.sin(dLon/2);
+                const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+                return R * c;
+            }
+
+            let distance = getDistance(shopLat, shopLon, lat, lon).toFixed(2);
+            window.userDistance = distance;
+
+            document.getElementById('locMsg').style.display='block';
+            document.getElementById('distanceMsg').innerText = 'Distance: ' + distance + ' km';
+            document.getElementById('distanceMsg').style.display='block';
+
+            if(distance <= 5){
+                document.getElementById('priceMsg').innerText = 'Delivery: ₹50';
+                document.getElementById('priceMsg').style.display='block';
+            } else {
+                document.getElementById('priceMsg').innerText = '❌ Service not available (over 5km)';
+                document.getElementById('priceMsg').style.display='block';
+            }
+
+            setTimeout(()=>{
+                document.getElementById('locMsg').style.display='none';
+            },2000);
+
+        }, function(){
+            alert('Location access denied');
+        });
+    } else {
+        alert('Geolocation not supported');
+    }
+},2000);
+        }, function(){
+            alert('Location access denied');
+        });
+    } else {
+        alert('Geolocation not supported');
+    }
+}
 </script>
 
 </body>
