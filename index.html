@@ -118,9 +118,13 @@ footer{text-align:center;padding:20px;background:#111;color:#888;}
 <div class="whatsapp-float" onclick="openWhatsApp()">💬</div>
 
 <script>
+// GLOBAL VARIABLES
 let currentService = '';
+window.userLocation = '';
+window.userDistance = 0;
 
-function openForm(type){
+// OPEN FORM
+window.openForm = function(type){
     currentService = type;
     document.getElementById('formModal').classList.add('active');
 
@@ -136,72 +140,25 @@ function openForm(type){
     } else if(type === 'fuel'){
         title.innerText = 'Emergency Fuel Service';
         dropdown.options[0].text = 'Emergency Delivery?';
-    } else if(type === 'wash'){
-        title.innerText = 'Book Car/Bike Washing';
-        dropdown.options[0].text = 'Home Washing?';
     }
 }
-function closeForm(){document.getElementById('formModal').classList.remove('active');}
 
-function submitForm(){
-let name=document.getElementById('name').value;
-let phone=document.getElementById('phone').value;
-let date=document.getElementById('date').value;
-let time=document.getElementById('time').value;
-let home=document.getElementById('home').value;
-
-if(!name || !phone || !date || !time || !home){alert('Fill all fields');return;}
-
-// REJECT IF DISTANCE > 5KM
-if(window.userDistance && window.userDistance > 5){
-    alert('Service not available beyond 5km');
-    return;
+// CLOSE FORM
+window.closeForm = function(){
+    document.getElementById('formModal').classList.remove('active');
 }
 
-document.getElementById('loadingMsg').style.display='block';
-
-let serviceName = '';
-if(currentService === 'tyre') serviceName = 'Tyre Service';
-if(currentService === 'wash') serviceName = 'Car/Bike Washing';
-if(currentService === 'fuel') serviceName = 'Emergency Fuel Service';
-let optionLabel = '';
-if(currentService === 'tyre') optionLabel = 'Home Repair';
-if(currentService === 'wash') optionLabel = 'Home Washing';
-if(currentService === 'fuel') optionLabel = 'Emergency Delivery';
-
-let locationText = window.userLocation ? `%0ALocation: https://maps.google.com/?q=${window.userLocation}` : '';
-
-let msg=`New Booking:%0AService: ${serviceName}%0AName: ${name}%0APhone: ${phone}%0ADate: ${date}%0ATime: ${time}%0A${optionLabel}: ${home}${locationText}`;
-window.open(`https://wa.me/918638939143?text=${msg}`,'_blank');
-
-fetch("YOUR_GOOGLE_SCRIPT_URL",{
-method:"POST",
-body:JSON.stringify({name,phone,date,time,home}),
-headers:{"Content-Type":"application/json"}
-});
-
-setTimeout(()=>{
-document.getElementById('loadingMsg').style.display='none';
-document.getElementById('successMsg').style.display='block';
-setTimeout(()=>{closeForm();document.getElementById('successMsg').style.display='none';},2000);
-},1000);
-}
-
-function openWhatsApp(){window.open('https://wa.me/918638939143','_blank');}
-
-// GET LIVE LOCATION (FREE)
-function getLocation(){
+// GET LOCATION
+window.getLocation = function(){
     if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition(function(position){
             let lat = position.coords.latitude;
             let lon = position.coords.longitude;
             window.userLocation = lat + ',' + lon;
 
-            // YOUR SHOP LOCATION (CHANGE THIS)
             const shopLat = 26.1445;
             const shopLon = 91.7362;
 
-            // DISTANCE CALCULATION (Haversine)
             function getDistance(lat1, lon1, lat2, lon2){
                 const R = 6371;
                 const dLat = (lat2-lat1) * Math.PI/180;
@@ -213,24 +170,18 @@ function getLocation(){
                 return R * c;
             }
 
-            let distance = getDistance(shopLat, shopLon, lat, lon).toFixed(2);
+            let distance = getDistance(shopLat, shopLon, lat, lon);
             window.userDistance = distance;
 
-            document.getElementById('locMsg').style.display='block';
-            document.getElementById('distanceMsg').innerText = 'Distance: ' + distance + ' km';
-            document.getElementById('distanceMsg').style.display='block';
+            document.getElementById('distanceMsg').innerText = 'Distance: ' + distance.toFixed(2) + ' km';
+            document.getElementById('distanceMsg').style.display = 'block';
 
             if(distance <= 5){
                 document.getElementById('priceMsg').innerText = 'Delivery: ₹50';
-                document.getElementById('priceMsg').style.display='block';
             } else {
                 document.getElementById('priceMsg').innerText = '❌ Service not available (over 5km)';
-                document.getElementById('priceMsg').style.display='block';
             }
-
-            setTimeout(()=>{
-                document.getElementById('locMsg').style.display='none';
-            },2000);
+            document.getElementById('priceMsg').style.display = 'block';
 
         }, function(){
             alert('Location access denied');
@@ -238,13 +189,64 @@ function getLocation(){
     } else {
         alert('Geolocation not supported');
     }
-},2000);
-        }, function(){
-            alert('Location access denied');
-        });
-    } else {
-        alert('Geolocation not supported');
+}
+
+// SUBMIT FORM
+window.submitForm = function(){
+    let name=document.getElementById('name').value;
+    let phone=document.getElementById('phone').value;
+    let date=document.getElementById('date').value;
+    let time=document.getElementById('time').value;
+    let home=document.getElementById('home').value;
+
+    if(!name || !phone || !date || !time || !home){
+        alert('Fill all fields');
+        return;
     }
+
+    // STRICT CHECK: MUST HAVE LOCATION FIRST
+    if(!window.userLocation){
+        alert('Please click "Use My Location" first');
+        return;
+    }
+
+    // AUTO REJECT ABOVE 5KM
+    if(window.userDistance > 5){
+        alert('❌ Service not available beyond 5 km');
+        return;
+    }
+
+    document.getElementById('loadingMsg').style.display='block';
+
+    let serviceName = '';
+    if(currentService === 'tyre') serviceName = 'Tyre Service';
+    if(currentService === 'wash') serviceName = 'Car/Bike Washing';
+    if(currentService === 'fuel') serviceName = 'Emergency Fuel Service';
+
+    let optionLabel = '';
+    if(currentService === 'tyre') optionLabel = 'Home Repair';
+    if(currentService === 'wash') optionLabel = 'Home Washing';
+    if(currentService === 'fuel') optionLabel = 'Emergency Delivery';
+
+    let locationText = `%0ALocation: https://maps.google.com/?q=${window.userLocation}`;
+
+    let msg=`New Booking:%0AService: ${serviceName}%0AName: ${name}%0APhone: ${phone}%0ADate: ${date}%0ATime: ${time}%0A${optionLabel}: ${home}${locationText}`;
+
+    window.open(`https://wa.me/918638939143?text=${msg}`,'_blank');(`https://wa.me/918638939143?text=${msg}`,'_blank');
+
+    setTimeout(()=>{
+        document.getElementById('loadingMsg').style.display='none';
+        document.getElementById('successMsg').style.display='block';
+        setTimeout(()=>{
+            closeForm();
+            document.getElementById('successMsg').style.display='none';
+        },2000);
+    },1000);
+}
+
+// FLOAT BUTTON
+window.openWhatsApp = function(){
+    window.open('https://wa.me/918638939143','_blank');
 }
 </script>
 
