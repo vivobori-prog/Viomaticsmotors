@@ -45,49 +45,32 @@ nav a:hover{color:#ffd000;}
     font-weight:600;
 }
 
-/* HERO WITH ANIMATED SLIDESHOW */
+/* HERO SIMPLE CLEAN BACKGROUND */
 .hero{
     height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
     text-align:center;
-    position:relative;
-    overflow:hidden;
-}
-
-.slide{
-    position:absolute;
-    width:100%;
-    height:100%;
-    background-size:cover;
-    background-position:center;
-    animation:slideShow 15s infinite;
-    opacity:0;
-}
-
-.slide:nth-child(1){background-image:url('https://images.unsplash.com/photo-1503376780353-7e6692767b70'); animation-delay:0s;}
-.slide:nth-child(2){background-image:url('https://images.unsplash.com/photo-1493238792000-8113da705763'); animation-delay:5s;}
-.slide:nth-child(3){background-image:url('https://images.unsplash.com/photo-1511919884226-fd3cad34687c'); animation-delay:10s;}
-
-@keyframes slideShow{
-    0%{opacity:0;}
-    10%{opacity:1;}
-    30%{opacity:1;}
-    40%{opacity:0;}
-    100%{opacity:0;}
+    background:linear-gradient(135deg,#000,#111);
 }
 
 .hero-content{
-    position:relative;
-    z-index:2;
+    padding:20px;
 }
 
-.hero h1{font-size:55px;color:#ffd000;}
-.hero p{color:#ddd;margin-top:10px;}
+.hero h1{
+    font-size:55px;
+    color:#ffd000;
+}
+
+.hero p{
+    color:#ddd;
+    margin-top:10px;
+}
 
 .btn{
-    margin-top:25px;
+    margin-top:40px; /* moved slightly down */
     padding:14px 35px;
     background:#ffd000;
     color:black;
@@ -111,23 +94,46 @@ nav a:hover{color:#ffd000;}
 
 .card:hover{transform:scale(1.1);}
 
-/* GOOGLE MAP */
-.map{
-    padding:50px;
-    text-align:center;
-}
-
-.map iframe{
-    width:100%;
-    height:300px;
-    border:0;
-    border-radius:10px;
-}
-
 footer{text-align:center;padding:20px;background:#111;color:#888;}
 
+/* MOBILE OPTIMIZATION */
 @media(max-width:768px){
-.hero h1{font-size:35px;}
+
+header{
+    padding:10px 15px;
+}
+
+header img{
+    width:45px;
+}
+
+nav a{
+    margin-left:10px;
+    font-size:14px;
+}
+
+.call-btn{
+    padding:6px 10px;
+    font-size:12px;
+}
+
+.hero h1{
+    font-size:32px;
+}
+
+.hero p{
+    font-size:14px;
+}
+
+.btn{
+    padding:10px 20px;
+    font-size:14px;
+    margin-top:30px;
+}
+
+.card{
+    width:90%;
+}
 }
 </style>
 </head>
@@ -139,16 +145,11 @@ footer{text-align:center;padding:20px;background:#111;color:#888;}
 <nav>
 <a href="#">Home</a>
 <a href="#services">Services</a>
-<a href="#map">Location</a>
 <a href="tel:8638939143" class="call-btn">Call Now</a>
 </nav>
 </header>
 
 <section class="hero">
-<div class="slide"></div>
-<div class="slide"></div>
-<div class="slide"></div>
-
 <div class="hero-content">
 <h1>VIOMATICS MOTORS</h1>
 <p>Tyre • Wash • Fuel Services</p>
@@ -163,11 +164,6 @@ footer{text-align:center;padding:20px;background:#111;color:#888;}
 <div class="card">Car Washing</div>
 <div class="card">Fuel Service</div>
 </div>
-</section>
-
-<section class="map" id="map">
-<h2 style="color:#ffd000; margin-bottom:20px;">Our Location</h2>
-<iframe src="https://maps.google.com/maps?q=guwahati&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
 </section>
 
 <footer>
