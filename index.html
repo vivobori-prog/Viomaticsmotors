@@ -12,7 +12,6 @@
 
 body{background:linear-gradient(135deg,#000,#111,#000);color:white;overflow-x:hidden;}
 
-/* HEADER */
 header{
 position:sticky;top:0;z-index:1000;
 background:rgba(0,0,0,0.7);backdrop-filter:blur(10px);
@@ -20,16 +19,14 @@ padding:15px 40px;display:flex;align-items:center;
 }
 header img{width:60px;position:absolute;left:50%;transform:translateX(-50%);}
 nav{margin-left:auto;}
-nav a{margin-left:20px;color:white;text-decoration:none;transition:0.3s;}
+nav a{margin-left:20px;color:white;text-decoration:none;}
 nav a:hover{color:#ffd000;}
-.call-btn{margin-left:20px;padding:8px 18px;background:#ffd000;color:black;border-radius:20px;text-decoration:none;font-weight:600;}
+.call-btn{margin-left:20px;padding:8px 18px;background:#ffd000;color:black;border-radius:20px;}
 
-/* HERO */
 .hero{height:100vh;display:flex;justify-content:center;align-items:center;text-align:center;}
-.hero h1{font-size:60px;color:#ffd000;text-shadow:0 0 5px #ffd000;}
+.hero h1{font-size:60px;color:#ffd000;}
 .hero p{color:#ccc;margin-top:15px;}
 
-/* GALLERY */
 .gallery{padding:60px 20px;text-align:center;}
 .gallery h2{color:#ffd000;margin-bottom:30px;}
 
@@ -45,23 +42,19 @@ width:300px;
 height:200px;
 object-fit:cover;
 border-radius:15px;
-box-shadow:0 0 15px rgba(255,208,0,0.3);
 transition:0.4s;
 }
-
 .gallery-grid img:hover{
 transform:scale(1.05);
-box-shadow:0 0 25px rgba(255,208,0,0.8);
+box-shadow:0 0 20px #ffd000;
 }
 
-/* SERVICES */
 .services{padding:80px 20px;text-align:center;}
 .services h2{margin-bottom:40px;color:#ffd000;}
 .service-container{display:flex;justify-content:center;gap:25px;flex-wrap:wrap;}
 .card{background:#111;padding:30px;border-radius:15px;width:220px;cursor:pointer;transition:0.4s;}
 .card:hover{transform:scale(1.1);box-shadow:0 0 20px #ffd000;}
 
-/* FORM */
 .form-modal{
 position:fixed;top:0;left:0;width:100%;height:100%;
 background:rgba(0,0,0,0.85);
@@ -125,14 +118,13 @@ font-size:26px;cursor:pointer;
 </div>
 </section>
 
-<!-- UPDATED GALLERY -->
 <section class="gallery">
 <h2>Our Work</h2>
 
 <div class="gallery-grid">
-<img src="https://images.unsplash.com/photo-1607860108855-64acf2078ed9" alt="Car Wash">
-<img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537" alt="Tyre Repair">
-<img src="https://images.unsplash.com/photo-1593941707882-a5bac6861d75" alt="Fuel Service">
+<img src="https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=800&q=80" alt="Car Wash">
+<img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80" alt="Tyre Repair">
+<img src="https://images.unsplash.com/photo-1581093588401-22c7c0c5d1b3?auto=format&fit=crop&w=800&q=80" alt="Fuel Bottles">
 </div>
 
 </section>
@@ -146,7 +138,6 @@ font-size:26px;cursor:pointer;
 </div>
 </section>
 
-<!-- FORM -->
 <div class="form-modal" id="formModal">
 <div class="form-box">
 <span class="close-btn" onclick="closeForm()">✖</span>
@@ -164,11 +155,9 @@ font-size:26px;cursor:pointer;
 <option value="No">No (Visit Shop)</option>
 </select>
 
-<button id="submitBtn" class="submit-btn" onclick="submitForm()">Submit</button>
+<button class="submit-btn" onclick="submitForm()">Submit</button>
 
-<button id="locBtn" class="submit-btn" 
-style="margin-top:10px;background:#222;color:#ffd000;display:none;" 
-onclick="getLocation()">Use My Location</button>
+<button id="locBtn" class="submit-btn" style="margin-top:10px;background:#222;color:#ffd000;display:none;" onclick="getLocation()">Use My Location</button>
 
 <div class="loading" id="loadingMsg">Sending...</div>
 <div class="success" id="distanceMsg"></div>
